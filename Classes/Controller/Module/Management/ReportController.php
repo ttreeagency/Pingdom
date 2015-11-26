@@ -49,4 +49,26 @@ class ReportController extends ActionController
             'probeFilters' => $probeFilters,
         ]);
     }
+
+    /**
+     * @param integer $identifier
+     * @return void
+     */
+    public function pauseAction($identifier)
+    {
+        $this->client->pause($identifier);
+        $this->addFlashMessage('Job has been paused with success');
+        $this->redirect('index');
+    }
+
+    /**
+     * @param integer $identifier
+     * @return void
+     */
+    public function unpauseAction($identifier)
+    {
+        $this->client->unpause($identifier);
+        $this->addFlashMessage('Job has been unpaused with success');
+        $this->redirect('index');
+    }
 }

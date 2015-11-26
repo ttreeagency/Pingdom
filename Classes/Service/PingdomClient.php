@@ -91,9 +91,7 @@ class PingdomClient
      */
     public function getCheck($checkIdentifier)
     {
-        if (!$this->isCheckVisible($checkIdentifier)) {
-            throw new Exception('Check not found', 1448563133);
-        }
+        $this->isCheckVisible($checkIdentifier);
         $check = $this->objectToArray($this->client->getCheck($checkIdentifier));
         return $this->postprocessCheck($check);
     }
@@ -105,10 +103,30 @@ class PingdomClient
      */
     public function getAnalysis($checkIdentifier)
     {
-        if (!$this->isCheckVisible($checkIdentifier)) {
-            throw new Exception('Check not found', 1448563133);
-        }
+        $this->isCheckVisible($checkIdentifier);
         return $this->client->getAnalysis($checkIdentifier);
+    }
+
+    /**
+     * @param integer $checkIdentifier
+     * @return array
+     * @throws Exception
+     */
+    public function pause($checkIdentifier)
+    {
+        $this->isCheckVisible($checkIdentifier);
+        return $this->client->pauseCheck($checkIdentifier);
+    }
+
+    /**
+     * @param integer $checkIdentifier
+     * @return array
+     * @throws Exception
+     */
+    public function unpause($checkIdentifier)
+    {
+        $this->isCheckVisible($checkIdentifier);
+        return $this->client->unpauseCheck($checkIdentifier);
     }
 
     /**
@@ -126,12 +144,16 @@ class PingdomClient
         if (isset($check['created'])) {
             $check['created'] = \DateTime::createFromFormat('U', $check['created']);
         }
+        if (isset($check['status'])) {
+            $check['isPaused'] = $check['status'] === 'paused' ? true : false;
+        }
         return $check;
     }
 
     /**
      * @param integer $checkId
-     * @return boolean
+     * @return bool
+     * @throws Exception
      */
     protected function isCheckVisible($checkId)
     {
@@ -141,7 +163,10 @@ class PingdomClient
         if ($this->checkRuntimeCache === []) {
             $this->getChecks();
         }
-        return isset($this->checkRuntimeCache[$checkId]);
+        if (!isset($this->checkRuntimeCache[$checkId])) {
+            throw new Exception('Check not found', 1448563133);
+        }
+        return true;
     }
 
     /**

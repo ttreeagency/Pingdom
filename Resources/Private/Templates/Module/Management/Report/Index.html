@@ -8,6 +8,7 @@
             <tr>
                 <th>{neos:backend.translate(id: 'status', package: 'Ttree.Neos.Pingdom', value: 'Status')}</th>
                 <th>{neos:backend.translate(id: 'name', package: 'Ttree.Neos.Pingdom', value: 'Name')}</th>
+                <th>{neos:backend.translate(id: 'hostname', package: 'Ttree.Neos.Pingdom', value: 'Hostname')}</th>
                 <th>{neos:backend.translate(id: 'lastError', package: 'Ttree.Neos.Pingdom', value: 'Last Error')}</th>
                 <th>{neos:backend.translate(id: 'lastCheck', package: 'Ttree.Neos.Pingdom', value: 'Last Check')}</th>
                 <th>&nbsp;</th>
@@ -20,12 +21,29 @@
                     </td>
                     <td>
                         <b>{check.name}</b>
-                        ({check.hostname})
+                    </td>
+                    <td>
+                        {check.hostname}
                     </td>
                     <td>{check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
                     <td>{check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)</td>
                     <td class="neos-action">
                         <div class="neos-pull-right">
+                            <f:security.ifAccess privilegeTarget="Ttree.Neos.Pingdom:ManageReports">
+                                <f:if condition="{check.isPaused}">
+                                    <f:then>
+                                        <f:link.action action="unpause" arguments="{identifier: check.id}" class="neos-button" title="{neos:backend.translate(id: 'unpause', package: 'Ttree.Neos.Pingdom')}">
+                                            <i class="icon-play icon-white"></i>
+                                        </f:link.action>
+                                    </f:then>
+                                    <f:else>
+                                        <f:link.action action="pause" arguments="{identifier: check.id}" class="neos-button" title="{neos:backend.translate(id: 'pause', package: 'Ttree.Neos.Pingdom')}">
+                                            <i class="icon-pause icon-white"></i>
+                                        </f:link.action>
+                                    </f:else>
+                                </f:if>
+
+                            </f:security.ifAccess>
                             <f:link.action action="show" arguments="{identifier: check.id}" class="neos-button neos-button-primary" title="{neos:backend.translate(id: 'clickToViewDetails', package: 'Ttree.Neos.Pingdom', value: 'Click to view details')}">
                                 <i class="icon-info-sign icon-white"></i>
                             </f:link.action>

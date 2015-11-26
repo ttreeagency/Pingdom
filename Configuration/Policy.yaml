@@ -9,10 +9,19 @@ privilegeTargets:
     'Ttree.Neos.Pingdom:ShowReports':
       matcher: 'method(Ttree\Neos\Pingdom\Controller\Module\Management\ReportController->(index|show)Action())'
 
+    'Ttree.Neos.Pingdom:ManageReports':
+      matcher: 'method(Ttree\Neos\Pingdom\Controller\Module\Management\ReportController->(pause|unpause)Action())'
+
 roles:
 
   'TYPO3.Neos:Editor':
     privileges:
       -
         privilegeTarget: 'Ttree.Neos.Pingdom:ShowReports'
+        permission: GRANT
+
+  'TYPO3.Neos:Administrator':
+    privileges:
+      -
+        privilegeTarget: 'Ttree.Neos.Pingdom:ManageReports'
         permission: GRANT
