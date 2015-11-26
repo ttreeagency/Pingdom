@@ -1,0 +1,18 @@
+#                                                                        #
+# Security policy for the Neos Media Browser package                     #
+#                                                                        #
+
+privilegeTargets:
+
+  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+
+    'Ttree.Neos.Pingdom:ShowReports':
+      matcher: 'method(Ttree\Neos\Pingdom\Controller\Module\Management\ReportController->(index)Action())'
+
+roles:
+
+  'TYPO3.Neos:Editor':
+    privileges:
+      -
+        privilegeTarget: 'Ttree.Neos.Pingdom:ShowReports'
+        permission: GRANT

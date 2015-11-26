@@ -1,0 +1,9 @@
+-
+  requestFilter: 'mainRequest.isPackage("TYPO3.Neos") && isPackage("Ttree.Neos.Pingdom") && isController("Module\Management\Report")'
+  options:
+    'layoutRootPaths':
+      'Ttree.Neos.Pingdom': 'resource://Ttree.Neos.Pingdom/Private/Layouts'
+      'TYPO3.Neos': 'resource://TYPO3.Neos/Private/Layouts'
+    'partialRootPaths':
+      'Neos.Media.Browser': 'resource://Ttree.Neos.Pingdom/Private/Partials'
+      'TYPO3.Neos': 'resource://TYPO3.Neos/Private/Partials'

@@ -1,0 +1,30 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+<f:layout name="BackendModule" />
+
+<f:section name="content">
+    <div class="neos-row-fluid">
+        <table class="neos-table">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Last Error</th>
+                <th>Last Check</th>
+            </tr>
+            </thead>
+            <f:for each="{checks}" as="check">
+                <tr>
+                    <td title="{user.alias}">
+                        <b>{check.status}</b>
+                    </td>
+                    <td>
+                        <b>{check.name}</b>
+                        ({check.hostname})
+                    </td>
+                    <td>{check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
+                    <td>{check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)</td>
+                </tr>
+            </f:for>
+        </table>
+    </div>
+</f:section>

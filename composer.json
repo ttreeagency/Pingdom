@@ -1,0 +1,14 @@
+{
+  "name": "ttree/neos-pingdom",
+  "type": "typo3-flow-package",
+  "description": "Neos CMS backend module to show Pingdom reports",
+  "require": {
+    "typo3/flow": "*",
+    "sgrodzicki/pingdom": "1.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ttree\\Neos\\Pingdom\\": "Classes"
+    }
+  }
+}

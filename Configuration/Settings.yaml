@@ -1,0 +1,41 @@
+Ttree:
+
+  Neos:
+
+    Pingdom:
+
+      username: 'your-username'
+      password: 'your-password'
+      token: 'your-application-token'
+
+      checks:
+        filter: []
+
+TYPO3:
+
+  Flow:
+    security:
+      authentication:
+        providers:
+          Typo3BackendProvider:
+            requestPatterns:
+              controllerObjectName: 'TYPO3\Neos\Controller\.*|TYPO3\Neos\Service\.*|TYPO3\Media\Controller\.*|Ttree\JobButler\Controller\Module\Management\.*|Ttree\Neos\Pingdom\Controller\Module\Management\.*'
+
+  Neos:
+
+    userInterface:
+
+      translation:
+        autoInclude:
+          'Ttree.Neos.Pingdom': ['Modules']
+
+    modules:
+
+      management:
+        submodules:
+          pingdom:
+            label: 'Ttree.Neos.Pingdom:Modules:pingdom.label'
+            controller: '\Ttree\Neos\Pingdom\Controller\Module\Management\ReportController'
+            description: 'Ttree.Neos.Pingdom:Modules:pingdom.description'
+            icon: 'icon-asterisk'
+            privilegeTarget: 'Ttree.Neos.Pingdom:ShowReports'
