@@ -8,6 +8,19 @@ Neos CMS package to display Pingdom report in the Neos CMS backend.
 
 **Early version of this package, we be released on stable version with Neos 2.1**
 
+Features
+--------
+
+- [ ] General Dashboard
+- [x] List all Checks
+  - [x] Filter the list of visible Checks
+- [x] Show details about the Check (basic)
+- [ ] Show advanced details about the Check (dashboard)
+- [x] Pause / Unpause Check
+- [ ] Create Check
+- [ ] Edit Check
+- [ ] Remove Check
+
 ![Backend Module](https://dl.dropboxusercontent.com/s/s44pt9rcy7uxuc2/2015-11-26%20at%2022.39%202x.png?dl=0)
 
 Acknowledgments
