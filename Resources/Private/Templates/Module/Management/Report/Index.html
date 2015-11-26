@@ -6,10 +6,11 @@
         <table class="neos-table">
             <thead>
             <tr>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Last Error</th>
-                <th>Last Check</th>
+                <th>{neos:backend.translate(id: 'status', package: 'Ttree.Neos.Pingdom', value: 'Status')}</th>
+                <th>{neos:backend.translate(id: 'name', package: 'Ttree.Neos.Pingdom', value: 'Name')}</th>
+                <th>{neos:backend.translate(id: 'lastError', package: 'Ttree.Neos.Pingdom', value: 'Last Error')}</th>
+                <th>{neos:backend.translate(id: 'lastCheck', package: 'Ttree.Neos.Pingdom', value: 'Last Check')}</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <f:for each="{checks}" as="check">
@@ -23,6 +24,13 @@
                     </td>
                     <td>{check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
                     <td>{check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)</td>
+                    <td class="neos-action">
+                        <div class="neos-pull-right">
+                            <f:link.action action="show" arguments="{identifier: check.id}" class="neos-button neos-button-primary" title="{neos:backend.translate(id: 'clickToViewDetails', package: 'Ttree.Neos.Pingdom', value: 'Click to view details')}">
+                                <i class="icon-info-sign icon-white"></i>
+                            </f:link.action>
+                        </div>
+                    </td>
                 </tr>
             </f:for>
         </table>
