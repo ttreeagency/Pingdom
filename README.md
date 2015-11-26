@@ -11,17 +11,26 @@ Neos CMS package to display Pingdom report in the Neos CMS backend.
 Features
 --------
 
+![Backend Module](https://dl.dropboxusercontent.com/s/s44pt9rcy7uxuc2/2015-11-26%20at%2022.39%202x.png?dl=0)
+
 - [ ] General Dashboard
 - [x] List all Checks
   - [x] Filter the list of visible Checks
 - [x] Show details about the Check (basic)
 - [ ] Show advanced details about the Check (dashboard)
-- [x] Pause / Unpause Check
+- [x] Pause / Unpause Check (with custom Privilege Target, by default only Administrator can use this feature)
 - [ ] Create Check
 - [ ] Edit Check
 - [ ] Remove Check
 
-![Backend Module](https://dl.dropboxusercontent.com/s/s44pt9rcy7uxuc2/2015-11-26%20at%2022.39%202x.png?dl=0)
+
+Settings
+--------
+
+- ```username```: Your Pingdom username
+- ```password```: Your Pingdom password
+- ```token```: Your Pingdom Application Token
+- ```checks.filter```: An array to limit the check visibility (only declared ID are visible in the module
 
 Acknowledgments
 ---------------
