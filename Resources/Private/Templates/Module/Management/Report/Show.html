@@ -1,0 +1,160 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+<f:layout name="BackendModule" />
+
+<f:section name="content">
+    <div class="neos-row-fluid">
+        <table class="neos-table">
+            <tr>
+                <th colspan="2">
+                    {neos:backend.translate(id: 'header.general', package: 'Ttree.Neos.Pingdom')}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'status', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.status}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'name', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'hostname', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.hostname}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'lasterrortime', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'lasttesttime', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'resolution', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.resolution}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    {neos:backend.translate(id: 'header.notifications', package: 'Ttree.Neos.Pingdom')}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendtoemail', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendtoemail}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendtosms', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendtosms}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendtotwitter', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendtotwitter}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendtoiphone', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendtoiphone}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendtoandroid', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendtoandroid}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'sendnotificationwhendown', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.sendnotificationwhendown}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'notifyagainevery', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.notifyagainevery}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'notifywhenbackup', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.notifywhenbackup}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'use_legacy_notifications', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.use_legacy_notifications}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    {neos:backend.translate(id: 'header.others', package: 'Ttree.Neos.Pingdom')}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'created', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.created -> f:format.date(format: 'd.m.Y - H:i:s')}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'ipv6', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.ipv6}
+                </td>
+            </tr>
+        </table>
+    </div>
+</f:section>

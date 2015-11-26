@@ -7,7 +7,7 @@ privilegeTargets:
   'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
 
     'Ttree.Neos.Pingdom:ShowReports':
-      matcher: 'method(Ttree\Neos\Pingdom\Controller\Module\Management\ReportController->(index)Action())'
+      matcher: 'method(Ttree\Neos\Pingdom\Controller\Module\Management\ReportController->(index|show)Action())'
 
 roles:
 

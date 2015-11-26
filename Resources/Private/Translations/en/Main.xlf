@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Ttree.Neos.Pingdom" source-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="header.general" xml:space="preserve">
+				<source>General Informations</source>
+			</trans-unit>
+            <trans-unit id="header.notifications" xml:space="preserve">
+				<source>Notifications</source>
+			</trans-unit>
+            <trans-unit id="header.others" xml:space="preserve">
+				<source>Others</source>
+			</trans-unit>
+            <trans-unit id="status" xml:space="preserve">
+				<source>Status</source>
+			</trans-unit>
+            <trans-unit id="name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+            <trans-unit id="hostname" xml:space="preserve">
+				<source>Hostname</source>
+			</trans-unit>
+            <trans-unit id="lasterrortime" xml:space="preserve">
+				<source>Last Error Time</source>
+			</trans-unit>
+            <trans-unit id="lasttesttime" xml:space="preserve">
+				<source>Last Test Time</source>
+			</trans-unit>
+            <trans-unit id="resolution" xml:space="preserve">
+				<source>Resolution</source>
+			</trans-unit>
+            <trans-unit id="sendtoemail" xml:space="preserve">
+				<source>Email</source>
+			</trans-unit>
+            <trans-unit id="sendtosms" xml:space="preserve">
+				<source>SMS</source>
+			</trans-unit>
+            <trans-unit id="sendtotwitter" xml:space="preserve">
+				<source>Twitter</source>
+			</trans-unit>
+            <trans-unit id="sendtoiphone" xml:space="preserve">
+				<source>iPhone</source>
+			</trans-unit>
+            <trans-unit id="sendtoandroid" xml:space="preserve">
+				<source>Android</source>
+			</trans-unit>
+            <trans-unit id="sendnotificationwhendown" xml:space="preserve">
+				<source>Send notification when down?</source>
+			</trans-unit>
+            <trans-unit id="notifyagainevery" xml:space="preserve">
+				<source>Notify again every</source>
+			</trans-unit>
+            <trans-unit id="notifywhenbackup" xml:space="preserve">
+				<source>Notify when backup</source>
+			</trans-unit>
+            <trans-unit id="use_legacy_notifications" xml:space="preserve">
+				<source>Use Legacy Notifications</source>
+			</trans-unit>
+            <trans-unit id="created" xml:space="preserve">
+				<source>Creation Time</source>
+			</trans-unit>
+            <trans-unit id="ipv6" xml:space="preserve">
+				<source>IPv6</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

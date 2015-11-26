@@ -11,7 +11,7 @@ namespace Ttree\Neos\Pingdom\Service;
  * source code.
  */
 
-use Pingdom\Client;
+use Acquia\Pingdom\PingdomApi;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Exception;
 
@@ -49,7 +49,7 @@ class PingdomClient
     protected $checks;
 
     /**
-     * @var Client
+     * @var PingdomApi
      */
     protected $client;
 
@@ -63,17 +63,7 @@ class PingdomClient
      */
     public function initializeObject()
     {
-        $this->client = new Client($this->username, $this->password, $this->token);
-    }
-
-    /**
-     * Get probes
-     *
-     * @return \Pingdom\Probe\Server[]
-     */
-    public function getProbes()
-    {
-        return $this->client->getProbes();
+        $this->client = new PingdomApi($this->username, $this->password, $this->token);
     }
 
     /**
@@ -85,47 +75,58 @@ class PingdomClient
             return $this->checkRuntimeCache;
         }
         foreach ($this->client->getChecks() as $check) {
+            $check = $this->objectToArray($check);
             if (count($this->checks['filter']) > 0 && in_array($check['id'], $this->checks['filter']) === false) {
                 continue;
             }
-            $check['lasterrortime'] = \DateTime::createFromFormat('U', $check['lasterrortime']);
-            $check['lasttesttime'] = \DateTime::createFromFormat('U', $check['lasttesttime']);
-            $this->checkRuntimeCache[$check['id']] = $check;
+            $this->checkRuntimeCache[$check['id']] = $this->postprocessCheck($check);
         }
         return array_values($this->checkRuntimeCache);
     }
 
     /**
-     * Return a list of raw test results for a specified check
-     *
-     * @param integer $checkId
-     * @param integer $limit
-     * @param array|null $probes
+     * @param integer $checkIdentifier
      * @return array
      * @throws Exception
      */
-    public function getResults($checkId, $limit = 100, array $probes = null)
+    public function getCheck($checkIdentifier)
     {
-        if (!$this->isCheckVisible($checkId)) {
+        if (!$this->isCheckVisible($checkIdentifier)) {
             throw new Exception('Check not found', 1448563133);
         }
-        return $this->client->getResults($checkId, $limit, $probes);
+        $check = $this->objectToArray($this->client->getCheck($checkIdentifier));
+        return $this->postprocessCheck($check);
     }
 
     /**
-     * Get Intervals of Average Response Time and Uptime During a Given Interval
-     *
-     * @param integer $checkId
-     * @param string $resolution
+     * @param integer $checkIdentifier
      * @return array
      * @throws Exception
      */
-    public function getPerformanceSummary($checkId, $resolution = 'hour')
+    public function getAnalysis($checkIdentifier)
     {
-        if (!$this->isCheckVisible($checkId)) {
+        if (!$this->isCheckVisible($checkIdentifier)) {
             throw new Exception('Check not found', 1448563133);
         }
-        return $this->client->getPerformanceSummary($checkId, $resolution);
+        return $this->client->getAnalysis($checkIdentifier);
+    }
+
+    /**
+     * @param array $check
+     * @return array
+     */
+    protected function postprocessCheck(array $check)
+    {
+        if (isset($check['lasterrortime'])) {
+            $check['lasterrortime'] = \DateTime::createFromFormat('U', $check['lasterrortime']);
+        }
+        if (isset($check['lasttesttime'])) {
+            $check['lasttesttime'] = \DateTime::createFromFormat('U', $check['lasttesttime']);
+        }
+        if (isset($check['created'])) {
+            $check['created'] = \DateTime::createFromFormat('U', $check['created']);
+        }
+        return $check;
     }
 
     /**
@@ -141,5 +142,15 @@ class PingdomClient
             $this->getChecks();
         }
         return isset($this->checkRuntimeCache[$checkId]);
+    }
+
+    /**
+     * @param mixed $object
+     * @return array
+     */
+    protected function objectToArray($object) {
+        $json = json_encode($object);
+        $array = json_decode($json, true);
+        return $array;
     }
 }

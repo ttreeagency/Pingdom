@@ -30,4 +30,23 @@ class ReportController extends ActionController
     {
         $this->view->assign('checks', $this->client->getChecks());
     }
+
+    /**
+     * @param integer $identifier
+     * @return void
+     */
+    public function showAction($identifier)
+    {
+        $check = $this->client->getCheck($identifier);
+        $type = $check['type'];
+        $tags = $check['tags'];
+        $probeFilters = $check['probe_filters'];
+        unset($check['type'], $check['tags'], $check['probe_filters']);
+        $this->view->assignMultiple([
+            'check' => $check,
+            'type' => $type,
+            'tags' => $tags,
+            'probeFilters' => $probeFilters,
+        ]);
+    }
 }
