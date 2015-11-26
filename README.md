@@ -8,6 +8,8 @@ Neos CMS package to display Pingdom report in the Neos CMS backend.
 
 **Early version of this package, we be released on stable version with Neos 2.1**
 
+![Backend Module](https://dl.dropboxusercontent.com/s/9qcufx3i9gxz9py/2015-11-26%20at%2019.51.png?dl=0)
+
 Acknowledgments
 ---------------
 
