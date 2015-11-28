@@ -69,12 +69,12 @@ class PingdomClient
     }
 
     /**
-     * @return Checks
+     * @return void
      */
-    public function getChecks()
+    public function initializeChecks()
     {
         if ($this->checksRuntimeCache !== null) {
-            return $this->checksRuntimeCache;
+            return;
         }
         $this->checksRuntimeCache = new Checks();
         foreach ($this->client->getChecks() as $check) {
@@ -84,6 +84,15 @@ class PingdomClient
             $check = new Check($check);
             $this->checksRuntimeCache->attach($check);
         }
+        $this->checksRuntimeCache->rewind();
+    }
+
+    /**
+     * @return Checks
+     */
+    public function getChecks()
+    {
+        $this->initializeChecks();
         return $this->checksRuntimeCache;
     }
 
@@ -138,15 +147,21 @@ class PingdomClient
      */
     protected function isCheckVisible($checkId)
     {
-        if (count($this->checks['filter']) === 0) {
+        if ($this->hasCheckFilter() === false) {
             return true;
         }
-        if ($this->checksRuntimeCache === null) {
-            $this->getChecks();
-        }
+        $this->initializeChecks();
         if (!isset($this->checksRuntimeCache[$checkId])) {
             throw new Exception('Check not found', 1448563133);
         }
         return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function hasCheckFilter()
+    {
+        return count($this->checks['filter']) > 1;
     }
 }

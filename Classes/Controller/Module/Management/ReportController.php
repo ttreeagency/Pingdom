@@ -28,7 +28,11 @@ class ReportController extends ActionController
      */
     public function indexAction()
     {
-        $this->view->assign('checks', $this->client->getChecks());
+        $checks = $this->client->getChecks();
+        if ($checks->count() === 1) {
+            $this->forward('show', null, null, ['identifier' => $checks->current()->getId()]);
+        }
+        $this->view->assign('checks', $checks);
     }
 
     /**
