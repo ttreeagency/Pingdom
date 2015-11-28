@@ -1,6 +1,8 @@
 Ttree.Neos.Pingdom
 ==================
 
+[![StyleCI](https://styleci.io/repos/46942278/shield)](https://styleci.io/repos/46942278)
+
 Introduction
 ------------
 
