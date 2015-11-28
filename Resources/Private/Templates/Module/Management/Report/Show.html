@@ -35,10 +35,18 @@
             </tr>
             <tr>
                 <td>
+                    <b>{neos:backend.translate(id: 'ipv6', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.IPV6}
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <b>{neos:backend.translate(id: 'lasterrortime', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}
+                    {check.lastErrorTime -> f:format.date(format: 'd.m.Y - H:i:s')}
                 </td>
             </tr>
             <tr>
@@ -46,7 +54,7 @@
                     <b>{neos:backend.translate(id: 'lasttesttime', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)
+                    {check.lastTestTime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)
                 </td>
             </tr>
             <tr>
@@ -54,7 +62,15 @@
                     <b>{neos:backend.translate(id: 'resolution', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.resolution}
+                    {check.resolution} minute(s)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{neos:backend.translate(id: 'created', package: 'Ttree.Neos.Pingdom')}</b>
+                </td>
+                <td>
+                    {check.created -> f:format.date(format: 'd.m.Y - H:i:s')}
                 </td>
             </tr>
             <tr>
@@ -67,7 +83,7 @@
                     <b>{neos:backend.translate(id: 'sendtoemail', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendtoemail}
+                    <f:render section="BooleanValue" arguments="{value: check.sendToEmail}" />
                 </td>
             </tr>
             <tr>
@@ -75,7 +91,7 @@
                     <b>{neos:backend.translate(id: 'sendtosms', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendtosms}
+                    <f:render section="BooleanValue" arguments="{value: check.sendToSMS}" />
                 </td>
             </tr>
             <tr>
@@ -83,7 +99,7 @@
                     <b>{neos:backend.translate(id: 'sendtotwitter', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendtotwitter}
+                    <f:render section="BooleanValue" arguments="{value: check.sendToTwitter}" />
                 </td>
             </tr>
             <tr>
@@ -91,7 +107,7 @@
                     <b>{neos:backend.translate(id: 'sendtoiphone', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendtoiphone}
+                    <f:render section="BooleanValue" arguments="{value: check.sendToIphone}" />
                 </td>
             </tr>
             <tr>
@@ -99,7 +115,7 @@
                     <b>{neos:backend.translate(id: 'sendtoandroid', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendtoandroid}
+                    <f:render section="BooleanValue" arguments="{value: check.sendToAndroid}" />
                 </td>
             </tr>
             <tr>
@@ -107,7 +123,7 @@
                     <b>{neos:backend.translate(id: 'sendnotificationwhendown', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.sendnotificationwhendown}
+                    <f:render section="BooleanValue" arguments="{value: check.sendNotificationWhenDown}" />
                 </td>
             </tr>
             <tr>
@@ -115,7 +131,14 @@
                     <b>{neos:backend.translate(id: 'notifyagainevery', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.notifyagainevery}
+                    <f:if condition="{check.notifyAgainEvery}">
+                        <f:then>
+                            {check.notifyAgainEvery} minute(s)
+                        </f:then>
+                        <f:else>
+                            No
+                        </f:else>
+                    </f:if>
                 </td>
             </tr>
             <tr>
@@ -123,7 +146,7 @@
                     <b>{neos:backend.translate(id: 'notifywhenbackup', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.notifywhenbackup}
+                    <f:render section="BooleanValue" arguments="{value: check.notifyWhenBackup}" />
                 </td>
             </tr>
             <tr>
@@ -131,30 +154,20 @@
                     <b>{neos:backend.translate(id: 'use_legacy_notifications', package: 'Ttree.Neos.Pingdom')}</b>
                 </td>
                 <td>
-                    {check.use_legacy_notifications}
-                </td>
-            </tr>
-            <tr>
-                <th colspan="2">
-                    {neos:backend.translate(id: 'header.others', package: 'Ttree.Neos.Pingdom')}
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <b>{neos:backend.translate(id: 'created', package: 'Ttree.Neos.Pingdom')}</b>
-                </td>
-                <td>
-                    {check.created -> f:format.date(format: 'd.m.Y - H:i:s')}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>{neos:backend.translate(id: 'ipv6', package: 'Ttree.Neos.Pingdom')}</b>
-                </td>
-                <td>
-                    {check.ipv6}
+                    <f:render section="BooleanValue" arguments="{value: check.useLegacyNotifications}" />
                 </td>
             </tr>
         </table>
     </div>
+</f:section>
+
+<f:section name="BooleanValue">
+    <f:if condition="{value}">
+        <f:then>
+            Yes
+        </f:then>
+        <f:else>
+            No
+        </f:else>
+    </f:if>
 </f:section>

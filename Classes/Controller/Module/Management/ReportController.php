@@ -38,10 +38,9 @@ class ReportController extends ActionController
     public function showAction($identifier)
     {
         $check = $this->client->getCheck($identifier);
-        $type = $check['type'];
-        $tags = $check['tags'];
-        $probeFilters = $check['probe_filters'];
-        unset($check['type'], $check['tags'], $check['probe_filters']);
+        $type = $check->getType();
+        $tags = $check->getTags();
+        $probeFilters = $check->getProbeFilters();
         $this->view->assignMultiple([
             'check' => $check,
             'type' => $type,

@@ -11,6 +11,7 @@
                 <th>{neos:backend.translate(id: 'hostname', package: 'Ttree.Neos.Pingdom', value: 'Hostname')}</th>
                 <th>{neos:backend.translate(id: 'lastError', package: 'Ttree.Neos.Pingdom', value: 'Last Error')}</th>
                 <th>{neos:backend.translate(id: 'lastCheck', package: 'Ttree.Neos.Pingdom', value: 'Last Check')}</th>
+                <th>{neos:backend.translate(id: 'responseTime', package: 'Ttree.Neos.Pingdom', value: 'Response Time')}</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
@@ -25,8 +26,9 @@
                     <td>
                         {check.hostname}
                     </td>
-                    <td>{check.lasterrortime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
-                    <td>{check.lasttesttime -> f:format.date(format: 'd.m.Y - H:i:s')} ({check.lastresponsetime} ms)</td>
+                    <td>{check.lastErrorTime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
+                    <td>{check.lastTestTime -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
+                    <td>{check.lastResponseTime} ms</td>
                     <td class="neos-action">
                         <div class="neos-pull-right">
                             <f:security.ifAccess privilegeTarget="Ttree.Neos.Pingdom:ManageReports">

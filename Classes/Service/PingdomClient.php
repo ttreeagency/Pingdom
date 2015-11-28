@@ -12,6 +12,8 @@ namespace Ttree\Neos\Pingdom\Service;
  */
 
 use Acquia\Pingdom\PingdomApi;
+use Ttree\Neos\Pingdom\Controller\Module\Domain\Model\Check;
+use Ttree\Neos\Pingdom\Controller\Module\Domain\Model\Checks;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Exception;
 
@@ -54,9 +56,9 @@ class PingdomClient
     protected $client;
 
     /**
-     * @var array
+     * @var Checks
      */
-    protected $checkRuntimeCache = [];
+    protected $checksRuntimeCache;
 
     /**
      * Initialize the current object
@@ -67,33 +69,33 @@ class PingdomClient
     }
 
     /**
-     * @return array
+     * @return Checks
      */
     public function getChecks()
     {
-        if ($this->checkRuntimeCache !== []) {
-            return $this->checkRuntimeCache;
+        if ($this->checksRuntimeCache !== null) {
+            return $this->checksRuntimeCache;
         }
+        $this->checksRuntimeCache = new Checks();
         foreach ($this->client->getChecks() as $check) {
-            $check = $this->objectToArray($check);
-            if (count($this->checks['filter']) > 0 && in_array($check['id'], $this->checks['filter']) === false) {
+            if (count($this->checks['filter']) > 0 && in_array($check->id, $this->checks['filter']) === false) {
                 continue;
             }
-            $this->checkRuntimeCache[$check['id']] = $this->postprocessCheck($check);
+            $check = new Check($check);
+            $this->checksRuntimeCache->attach($check);
         }
-        return array_values($this->checkRuntimeCache);
+        return $this->checksRuntimeCache;
     }
 
     /**
      * @param integer $checkIdentifier
-     * @return array
+     * @return Check
      * @throws Exception
      */
     public function getCheck($checkIdentifier)
     {
         $this->isCheckVisible($checkIdentifier);
-        $check = $this->objectToArray($this->client->getCheck($checkIdentifier));
-        return $this->postprocessCheck($check);
+        return new Check($this->client->getCheck($checkIdentifier));
     }
 
     /**
@@ -130,27 +132,6 @@ class PingdomClient
     }
 
     /**
-     * @param array $check
-     * @return array
-     */
-    protected function postprocessCheck(array $check)
-    {
-        if (isset($check['lasterrortime'])) {
-            $check['lasterrortime'] = \DateTime::createFromFormat('U', $check['lasterrortime']);
-        }
-        if (isset($check['lasttesttime'])) {
-            $check['lasttesttime'] = \DateTime::createFromFormat('U', $check['lasttesttime']);
-        }
-        if (isset($check['created'])) {
-            $check['created'] = \DateTime::createFromFormat('U', $check['created']);
-        }
-        if (isset($check['status'])) {
-            $check['isPaused'] = $check['status'] === 'paused' ? true : false;
-        }
-        return $check;
-    }
-
-    /**
      * @param integer $checkId
      * @return bool
      * @throws Exception
@@ -160,22 +141,12 @@ class PingdomClient
         if (count($this->checks['filter']) === 0) {
             return true;
         }
-        if ($this->checkRuntimeCache === []) {
+        if ($this->checksRuntimeCache === null) {
             $this->getChecks();
         }
-        if (!isset($this->checkRuntimeCache[$checkId])) {
+        if (!isset($this->checksRuntimeCache[$checkId])) {
             throw new Exception('Check not found', 1448563133);
         }
         return true;
-    }
-
-    /**
-     * @param mixed $object
-     * @return array
-     */
-    protected function objectToArray($object) {
-        $json = json_encode($object);
-        $array = json_decode($json, true);
-        return $array;
     }
 }
